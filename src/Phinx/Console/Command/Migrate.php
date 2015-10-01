@@ -83,23 +83,13 @@ EOT
         }
 
         $envOptions = $this->getConfig()->getEnvironment($environment);
-        if (isset($envOptions['adapter'])) {
-            $output->writeln('<info>using adapter</info> ' . $envOptions['adapter']);
-        }
+        $envOptionsParams = array('adapter' => 'adapter', 'wrapper' => 'wrapper', 'name' => 'database',
+            'table_prefix' => 'table prefix', 'table_suffix' => 'table suffix');
 
-        if (isset($envOptions['wrapper'])) {
-            $output->writeln('<info>using wrapper</info> ' . $envOptions['wrapper']);
-        }
-
-        if (isset($envOptions['name'])) {
-            $output->writeln('<info>using database</info> ' . $envOptions['name']);
-        }
-
-        if (isset($envOptions['table_prefix'])) {
-            $output->writeln('<info>using table prefix</info> ' . $envOptions['table_prefix']);
-        }
-        if (isset($envOptions['table_suffix'])) {
-            $output->writeln('<info>using table suffix</info> ' . $envOptions['table_suffix']);
+        foreach($envOptionsParams as $key => $value) {
+            if (isset($envOptions[$key])) {
+                $output->writeln("<info>using {$value}</info> {$envOptions[$key]}");
+            }
         }
 
         // run the migrations
